@@ -79,5 +79,5 @@ def search_lyric_from_QianQian(artist, song, traditional=True):
 
 
 if __name__ == '__main__':
-    search_lyric_from_QianQian('Eric Chou','我爱过你')
+    search_lyric_from_QianQian('Eric Chou','我愛過你')
 

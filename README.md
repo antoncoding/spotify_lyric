@@ -7,6 +7,16 @@ Spotify Lyric
 
 ## Usage
 
+### 0. Clone and install packages
+
+```console
+git clone https://github.com/antoncoding/spotify_lyric
+pip install -r requirements.txt
+pip install git+https://github.com/plamere/spotipy.git --upgrade
+```
+
+You must use the last command to manually upgrade spotipy.
+
 ### 1. Get Spotipy Client Token 
 
 * Go to https://developer.spotify.com/dashboard/login, use your Spotify Account to sign in.
@@ -36,7 +46,7 @@ REDIRECT_URI = 'http://localhost:8888/callback/'
 
 Run the following command to start the tool:
 ```console
-python3 start_live_lyric.py
+python start_live_lyric.py
 ```
 If this is your first time running with the `USERNAME` you set, you will be ask to login to Spotify on your web browser, **copy the whole uri you were redirected to** and paste it to the terminal:
 

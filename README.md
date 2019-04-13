@@ -1,8 +1,3 @@
----
-title: 'README Spotify Lyric'
-disqus: hackmd
----
-
 Spotify Lyric
 ===
 > An useful tool to show lyric of current playing song on terminal.
@@ -16,13 +11,16 @@ Spotify Lyric
 
 * Go to https://developer.spotify.com/dashboard/login, use your Spotify Account to sign in.
 * click on **CREATE CLIENT ID**, follow all the instructions to create your application.
+
 ![](https://i.imgur.com/vQ1YTOS.png)
 
 * You can find your Client ID on the Dashboard, click **SHOW CLIENT SECRET** to get the secret token.
+
 ![](https://i.imgur.com/JeQcDxM.png)
 
 
 * Go to **Edit Settings** and add the following uri to **Redirect URIs**: http://localhost:8888/callback/. Make sure you save it.
+
 ![](https://i.imgur.com/S1kJfbe.png)
 
 ### 2. Create `const.py`

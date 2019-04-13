@@ -8,11 +8,14 @@ from const import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, USERNAME
 
 cach_last_play = None
 NON_PLAYING_TIMEOUT = 60
+SCOPE = 'user-read-currently-playing'        
 
-scope = 'user-read-currently-playing'
-token = spotipy.util.prompt_for_user_token(USERNAME, scope, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+if __name__ == '__main__':
+    token = spotipy.util.prompt_for_user_token(USERNAME, SCOPE, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+    if not token:
+        print("Can't get token for", USERNAME)
+        exit()
 
-if token:
     while True:
         try:
             time.sleep(3)
@@ -41,7 +44,5 @@ if token:
             exit()
         except spotipy.client.SpotifyException: 
             print('get new access token')
-            token = spotipy.util.prompt_for_user_token(USERNAME, scope, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)        
-
-else:
-    print("Can't get token for", username)
+            token = spotipy.util.prompt_for_user_token(USERNAME, scope, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+    

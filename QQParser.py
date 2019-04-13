@@ -4,23 +4,37 @@ import json
 import urllib.request
 import urllib.parse
 import pylrc
-from nltk.corpus import wordnet
 from model_traditional_conversion.langconv import Converter
 
-def convert_raw_to_uriencoded(line):
-    if not wordnet.synsets(line):
+# from nltk.corpus import wordnet
+def isEnglish(s):
+    try:
+        s.encode(encoding='utf-8').decode('ascii')
+    except UnicodeDecodeError:
+        return False
+    else:
+        return True
+
+def convert_raw_to_uriencoded(line, isChineseSong=False):
+    if(len(line.split('-'))>1): line = line.split('-')[0]
+    encoded = line
+    _isChinese = False
+    if isEnglish(line):
+        if isChineseSong:
+            # Only get first name of the Singer
+            encoded = line.split(' ')[0]
+        else:
+            encoded = '+'.join(line.split(' '))
+    else:
         _simp = Converter('zh-hans').convert(line)
         encoded = urllib.parse.quote(_simp)
-        return encoded
-    else:
-        encoded = '+'.join(line.split(' '))
-        return encoded
+        _isChinese = True
+    return encoded, _isChinese
+        
 
 def getSongId(artist, song):
-    uri_artist = convert_raw_to_uriencoded(artist)
-    uri_song = convert_raw_to_uriencoded(song)
-
-    uri_song = urllib.parse.quote(song)
+    uri_song, isChineseSong = convert_raw_to_uriencoded(song, False)
+    uri_artist, _ = convert_raw_to_uriencoded(artist, isChineseSong)
     key = "{song}+{artist}".format(song=uri_song, artist=uri_artist)
     uri = 'http://music.taihe.com/search?key={}'.format(key)
     # parse search result
@@ -58,12 +72,12 @@ def search_lyric_from_QianQian(artist, song, traditional=True):
 
     lrc_file = open(lrc_path)
     lrc_string = ''.join(map(lambda line: slice_lrc_line(line), lrc_file.readlines()) )
-    # lrc_string = ''.join(lrc_file.readlines())
     lrc_file.close()
+    print('From: 千千音樂')
     print(lrc_string)
     return True
 
 
 if __name__ == '__main__':
-    search_lyric('animal', 'maroon 5')
+    search_lyric_from_QianQian('Eric Chou','我爱过你')
 

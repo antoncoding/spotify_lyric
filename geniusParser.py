@@ -9,6 +9,7 @@ def search_lyric_from_genius(artist, song):
 
     html_code = BeautifulSoup(request.text, features="html.parser")
     lyric = html_code.find("div", {"class": "lyrics"}).get_text()
+    print('From: Genius Lyric')
     for line in lyric.split('\n'):
         if ']' in line or '[' in line: continue
         print(line)

@@ -6,7 +6,6 @@ import urllib.parse
 import pylrc
 from model_traditional_conversion.langconv import Converter
 
-# from nltk.corpus import wordnet
 def isEnglish(s):
     try:
         s.encode(encoding='utf-8').decode('ascii')

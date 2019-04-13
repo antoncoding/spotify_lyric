@@ -3,7 +3,7 @@ Spotify Lyric
 > An useful tool to show lyric of current playing song on terminal.
 > Use 千千音樂 Search to optimize Chinese song searching result.
 
-![](https://i.imgur.com/HP7W7XB.jpg)
+![](https://i.imgur.com/7SN1nmG.jpg)
 
 ## Usage
 

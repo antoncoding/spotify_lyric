@@ -44,5 +44,5 @@ if __name__ == '__main__':
             exit()
         except spotipy.client.SpotifyException: 
             print('get new access token')
-            token = spotipy.util.prompt_for_user_token(USERNAME, scope, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+            token = spotipy.util.prompt_for_user_token(USERNAME, SCOPE, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
     

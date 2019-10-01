@@ -35,7 +35,8 @@ if __name__ == '__main__':
                 _ = system('clear')
                 # Try Searching on Qian Qian
                 success = search_lyric_from_QianQian(artist, name_song)
-                if success: continue
+                if success:
+                    continue
                 # Try Searching on Genius Lyric, throw Error if not Found
                 success = search_lyric_from_genius(artist, name_song)
             except:

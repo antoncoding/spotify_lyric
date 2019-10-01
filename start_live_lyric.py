@@ -24,7 +24,8 @@ if __name__ == '__main__':
             if type(current_song)=='NoneType':
                 time.sleep(NON_PLAYING_TIMEOUT)
                 continue
-            if current_song['item'] == cach_last_play: continue
+            if current_song['item'] == cach_last_play:
+                continue
 
             cach_last_play = current_song['item']
             artist = current_song['item']['artists'][0]['name']

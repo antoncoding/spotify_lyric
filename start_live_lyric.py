@@ -2,16 +2,22 @@ import spotipy
 import spotipy.util
 import time
 from os import system
-from QQParser import search_lyric_from_QianQian
-from geniusParser import search_lyric_from_genius
+from crawlers.GeniusCrawler import GeniusCrawler
 from const import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, USERNAME
 
 cach_last_play = None
 NON_PLAYING_TIMEOUT = 60
 SCOPE = 'user-read-currently-playing'        
 
+def print_lyric(lines):
+    for line in lines:
+        print(line)
+
 if __name__ == '__main__':
+    worker = GeniusCrawler()
+    
     token = spotipy.util.prompt_for_user_token(USERNAME, SCOPE, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+    
     if not token:
         print("Can't get token for", USERNAME)
         exit()
@@ -30,20 +36,22 @@ if __name__ == '__main__':
             cach_last_play = current_song['item']
             artist = current_song['item']['artists'][0]['name']
             name_song = current_song['item']['name']
+            
             try:
                 print('\nSong: {}\nArtist: {}'.format(name_song, artist))
                 _ = system('clear')
-                # Try Searching on Qian Qian
-                success = search_lyric_from_QianQian(artist, name_song)
-                if success:
-                    continue
-                # Try Searching on Genius Lyric, throw Error if not Found
-                success = search_lyric_from_genius(artist, name_song)
-            except:
+                
+                lines = worker.search_for_lyrics(artist, name_song)
+                print_lyric(lines)
+            
+            except AttributeError as e:
                 cach_last_play = current_song['item']
                 print('No Lyric Found: {}'.format(name_song))
+                continue
+        
         except KeyboardInterrupt:
             exit()
+        
         except spotipy.client.SpotifyException: 
             print('get new access token')
             token = spotipy.util.prompt_for_user_token(USERNAME, SCOPE, CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)

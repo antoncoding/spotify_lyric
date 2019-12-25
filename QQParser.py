@@ -62,19 +62,23 @@ def slice_lrc_line(line, traditional=True):
         return ' '
 
 def search_lyric_from_QianQian(artist, song, traditional=True):
-    sid = getSongId(artist, song)
-    lyric_link = getLyticURI(sid)
-    if(lyric_link==False): return False
+    try:
+        sid = getSongId(artist, song)
+        lyric_link = getLyticURI(sid)
+        if(lyric_link==False): return False
 
-    lrc_tuple = urllib.request.urlretrieve(lyric_link)
-    lrc_path = lrc_tuple[0]
+        lrc_tuple = urllib.request.urlretrieve(lyric_link)
+        lrc_path = lrc_tuple[0]
 
-    lrc_file = open(lrc_path)
-    lrc_string = ''.join(map(lambda line: slice_lrc_line(line), lrc_file.readlines()) )
-    lrc_file.close()
-    print('From: 千千音樂')
-    print(lrc_string)
-    return True
+        lrc_file = open(lrc_path)
+        lrc_string = ''.join(map(lambda line: slice_lrc_line(line), lrc_file.readlines()) )
+        lrc_file.close()
+        print('From: 千千音樂')
+        print(lrc_string)
+        return True
+    
+    except Exception as e:
+        return False
 
 
 if __name__ == '__main__':

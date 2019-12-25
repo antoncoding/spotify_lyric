@@ -65,7 +65,7 @@ def search_lyric_from_QianQian(artist, song, traditional=True):
     try:
         sid = getSongId(artist, song)
         lyric_link = getLyticURI(sid)
-        if(lyric_link==False): return False
+        if(lyric_link == False): return False
 
         lrc_tuple = urllib.request.urlretrieve(lyric_link)
         lrc_path = lrc_tuple[0]

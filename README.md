@@ -1,5 +1,7 @@
-Spotify Lyric
+# Spotify Lyric
+
 ===
+
 > An command line tool to show lyric of current playing song on Spotify.
 > Use 千千音樂 Search to optimize Chinese song searching result.
 
@@ -34,7 +36,9 @@ You must use the last command to manually upgrade spotipy.
 ![](https://i.imgur.com/S1kJfbe.png)
 
 ### 2. Create `const.py`
+
 You can either create a `const.py` file in the root directory  **or just rename** `const_example.py` to `const.py`. Paste the **CLIENT_ID** and **CLIENT_SECRET** you got from app dashboard here. (Also make sure the **redirect_uri** match the value you set in the dashboard setting.)
+
 ```python
 USERNAME = 'Anton'
 CLIENT_ID = 'PASTE YOUR CLIENT IT HERE'
@@ -45,9 +49,11 @@ REDIRECT_URI = 'http://localhost:8888/callback/'
 ### 3. Run it for the first time
 
 Run the following command to start the tool:
+
 ```console
 python start_live_lyric.py
 ```
+
 If this is your first time running with the `USERNAME` you set, you will be ask to login to Spotify on your web browser, **copy the whole uri you were redirected to** and paste it to the terminal:
 
 Example URI:

@@ -37,9 +37,10 @@ class QQCrawler(Crawler):
             _isChinese = True
         return encoded, _isChinese
 
+
     def getSongId(self, artist, song):
-        uri_song, isChineseSong = convert_raw_to_uriencoded(song, False)
-        uri_artist, _ = convert_raw_to_uriencoded(artist, isChineseSong)
+        uri_song, isChineseSong = self.convert_raw_to_uriencoded(song, False)
+        uri_artist, _ = self.convert_raw_to_uriencoded(artist, isChineseSong)
         key = "{song}+{artist}".format(song=uri_song, artist=uri_artist)
         uri = 'http://music.taihe.com/search?key={}'.format(key)
         # parse search result
@@ -49,6 +50,7 @@ class QQCrawler(Crawler):
                                  "class": "search-song-list song-list song-list-hook"}).find("ul").find_all("li")
         sid = json.loads(results[0]['data-songitem'])["songItem"]["sid"]
         return sid
+
 
     def getLyticURI(self, sid):
         request_uri = 'http://music.taihe.com/song/{sid}'.format(sid=sid)
@@ -62,12 +64,14 @@ class QQCrawler(Crawler):
         except:
             return self.raise_not_found()
 
+
     def slice_lrc_line(self, line, traditional=True):
         try:
             line = line.split(']')[-1]
             return Converter('zh-hant').convert(line)
         except Exception as e:
             return ' '
+
 
     def search_for_lyrics(self, artist, song):
         try:

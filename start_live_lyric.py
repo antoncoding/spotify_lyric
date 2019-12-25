@@ -6,8 +6,8 @@ from crawlers.GeniusCrawler import GeniusCrawler
 # from crawlers.QQCrawler import QQCrawler
 from const import CLIENT_ID, CLIENT_SECRET, REDIRECT_URI, USERNAME
 
-cach_last_play = None
-NON_PLAYING_TIMEOUT = 60
+cache_last_play = None
+NON_PLAYING_TIMEOUT = 5
 SCOPE = 'user-read-currently-playing'        
 
 def print_lyric(lines):
@@ -28,13 +28,15 @@ if __name__ == '__main__':
             time.sleep(3)
             sp = spotipy.Spotify(auth=token)
             current_song = sp.currently_playing()
-            if type(current_song)=='NoneType':
+            if current_song is None:
+                print('No song')
                 time.sleep(NON_PLAYING_TIMEOUT)
                 continue
-            if current_song['item'] == cach_last_play:
+            
+            if current_song['item'] == cache_last_play:
                 continue
 
-            cach_last_play = current_song['item']
+            cache_last_play = current_song['item']
             artist = current_song['item']['artists'][0]['name']
             name_song = current_song['item']['name']
             
@@ -46,7 +48,7 @@ if __name__ == '__main__':
                 print_lyric(lines)
             
             except AttributeError as e:
-                cach_last_play = current_song['item']
+                cache_last_play = current_song['item']
                 print('No Lyric Found: {}'.format(name_song))
                 continue
         

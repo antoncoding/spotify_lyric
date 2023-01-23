@@ -5,4 +5,4 @@ beautifulsoup4 == 4.6.0
 pygsl == 2.3.0
 pylrc == 0.0.6
 requests == 2.21.0
-spotipy == 2.4.4
+spotipy == 2.22.1
